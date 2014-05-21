@@ -15,7 +15,7 @@ class Request
      *
      * @var \Sokil\Rest\Client\Factory
      */
-    private $_factory;
+    protected $_factory;
     
     /**
      *
