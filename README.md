@@ -1,6 +1,6 @@
 RESTful SDK
 ===============
-Framework to build clients on PHP for services with RESTful API provided.
+Framework to build RESTful services on PHP
 
 * [Installation](#installation)
 
@@ -8,10 +8,10 @@ Installation
 ------------
 
 You can install library through Composer:
-```javascript
+```php
 {
     "require": {
-        "sokil/php-restful-sdk": "dev-master"
+        "sokil/php-rest": "dev-master"
     }
 }
 ```
