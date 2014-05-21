@@ -1,0 +1,22 @@
+{
+    "name": "sokil/php-rest",
+    "minimum-stability": "dev",
+    "description": "Framework to build RESTful service",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sokil",
+            "email": "dmytro.sokil@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Sokil": "src/"
+        }
+    },
+    "require": {
+        "guzzle/guzzle": "v3.9.1",
+        "sokil/php-guzzlecomponents": "0.*",
+        "psr/log": "~1.0"
+    }
+}
