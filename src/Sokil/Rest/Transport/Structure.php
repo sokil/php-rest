@@ -57,11 +57,6 @@ class Structure implements \Serializable
         return $this;
     }
     
-    public function toArray()
-    {
-        return $this->_data;
-    }
-    
     public function __get($name)
     {
         return isset($this->_data[$name]) ? $this->_data[$name] : null;
@@ -140,6 +135,15 @@ class Structure implements \Serializable
     public function __toString()
     {
         return $this->serialize();
+    }
+    
+    public function toJson() {
+        return json_encode($this->toArray());
+    }
+     
+    public function toArray()
+    {
+        return $this->_data;
     }
 }
 
