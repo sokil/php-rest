@@ -17,9 +17,11 @@ class Response
      */
     private $_structure;
     
-    public function __construct(\Guzzle\Http\Message\Response $response)
+    public function __construct(\Guzzle\Http\Message\Response $response, $type)
     {
         $this->_response = $response;
+        
+        $this->_structure = new $type;
         
         // if json returned - parse and fill structure
         if($this->_response->getContentType() == 'application/json') {

@@ -27,7 +27,7 @@ class Request
     
     protected $_action;
     
-    protected $_responseClassName = '\Sokil\Rest\Client\Response';
+    protected $_structureClassName = '\Sokil\Rest\Transport\Structure';
     
     private $_rawResponse;
     
@@ -197,13 +197,14 @@ class Request
     {
         $this->_rawResponse = $this->_request->send();
         
+        // create response
+        $this->_response = new Response($this->_rawResponse, $this->_structureClassName);
+        
         // log
         if($this->hasLogger()) {
             $this->getLogger()->debug((string) $this->_request . PHP_EOL . (string) $this->_rawResponse);
         }
         
-        // create response
-        $this->_response = new $this->_responseClassName($this->_rawResponse);
         
         return $this->_response;
     }
