@@ -30,6 +30,36 @@ class Response
     public function __destruct()
     {
         $this->_response = null;
+        $this->_structure = null;
+    }
+    
+    public function __call($name, $arguments)
+    {
+        $result = call_user_func_array(array($this->_structure, $name), $arguments);
+        if($result instanceof \Sokil\Rest\Transport\Structure) {
+            return $this;
+        }
+        
+        return $result;
+    }
+    
+    public function __get($name)
+    {
+        return $this->_structure->get($name);
+    }
+    
+    public function __set($name, $value)
+    {
+        $this->_structure->set($name, $value);
+    }
+    
+    /**
+     * 
+     * @return \Sokil\Rest\Transport\Structure
+     */
+    public function getStructure()
+    {
+        return $this->_structure;
     }
     
     public function getHttpCode()
