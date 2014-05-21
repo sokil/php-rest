@@ -11,7 +11,11 @@ class Structure implements \Serializable
         if($data) {
             $this->_data = $data;
         }
+        
+        $this->init();
     }
+    
+    public function init() {}
     
     public function setFromArray(array $data)
     {
