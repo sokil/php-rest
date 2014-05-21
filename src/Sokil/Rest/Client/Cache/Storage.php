@@ -22,6 +22,7 @@ class Storage extends \Guzzle\Plugin\Cache\DefaultCacheStorage
             return parent::getCacheKey($request);
         }
         
-        return md5(parent::getCacheKey($request) . $this->_cacheKeyGenerator($request));
+        $generator = $this->_cacheKeyGenerator;
+        return md5(parent::getCacheKey($request) . $generator($request));
     }
 }
