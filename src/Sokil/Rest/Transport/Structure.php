@@ -145,5 +145,35 @@ class Structure implements \Serializable
     {
         return $this->_data;
     }
+    
+        
+    public function remove($selector)
+    {
+        // modify
+        $arraySelector = explode('.', $selector);
+        $chunksNum = count($arraySelector);
+        
+        // optimize one-level selector search
+        if(1 == $chunksNum) {
+            unset($this->_data[$selector]);            
+            return $this;
+        }
+        
+        // find section
+        $section = &$this->_data;
+
+        for($i = 0; $i < $chunksNum - 1; $i++) {
+            $field = $arraySelector[$i];
+            if(!isset($section[$field])) {
+                return $this;
+            }
+
+            $section = &$section[$field];
+        }
+        
+        unset($section[$arraySelector[$chunksNum - 1]]);
+        
+        return $this;
+    }
 }
 
