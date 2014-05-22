@@ -2,7 +2,7 @@
 
 namespace Sokil\Rest\Transport;
 
-class Structure implements \Serializable
+class Structure implements StructureInterface
 {
     protected $_data;
     
