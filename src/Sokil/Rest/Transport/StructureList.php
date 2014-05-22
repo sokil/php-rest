@@ -35,9 +35,7 @@ class StructureList implements \SeekableIterator, \Countable
         $data = $this->_list[$this->_index];
         $className = $this->_getStructureClassName($data);
         
-        $structure = new $className($data);
-        
-        return $structure;
+        return new $className($data);
     }
     
     public function next()
