@@ -21,11 +21,9 @@ class Response
     {
         $this->_response = $response;
         
-        $this->_structure = new $type;
-        
         // if json returned - parse and fill structure
         if($this->_response->getContentType() == 'application/json') {
-            $this->_structure->setFromArray($this->_response->json());
+            $this->_structure = new $type($this->_response->json());
         }
     }
     
