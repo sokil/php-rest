@@ -195,7 +195,12 @@ class Request
      */
     public function send()
     {
-        $this->_rawResponse = $this->_request->send();
+        try {
+            $this->_rawResponse = $this->_request->send();
+        } catch (\Exception $e) {
+            $this->_rawResponse = $this->_request->getResponse();
+            throw $e;
+        }
         
         // create response
         $this->_response = new Response($this->_rawResponse, $this->_structureClassName);
