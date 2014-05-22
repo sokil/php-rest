@@ -4,7 +4,7 @@ namespace Sokil\Rest\Transport;
 
 class Structure implements \Serializable
 {
-    private $_data;
+    protected $_data;
     
     public function __construct(array $data = null)
     {
