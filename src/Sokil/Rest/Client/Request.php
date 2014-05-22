@@ -21,7 +21,7 @@ class Request
      *
      * @var \Guzzle\Http\Message\Request
      */
-    private $_request;
+    protected $_request;
     
     protected $_url;
     
