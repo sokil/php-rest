@@ -24,6 +24,8 @@ class Response
         // if json returned - parse and fill structure
         if($this->_response->getContentType() == 'application/json') {
             $this->_structure = new $type($this->_response->json());
+        } else {
+            throw new \Exception('Structure parser for content type "' . $this->_response->getContentType() . '" not implemented');
         }
     }
     
