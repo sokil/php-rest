@@ -109,15 +109,9 @@ class Structure implements StructureInterface
      * @return \Sokil\Rest\StructureList
      * @throws \Exception
      */
-    public function getObjectList($selector, $className)
+    public function getObjectList($selector, $structureClassName = null)
     {        
-        $list = new $className($this->get($selector));
-        
-        if(!($list instanceof StructureList)) {
-            throw new \Exception('Must be iterator');
-        }
-        
-        return $list;
+        return new StructureList($this->get($selector), $structureClassName);
     }
     
     public function serialize()

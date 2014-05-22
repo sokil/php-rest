@@ -8,16 +8,27 @@ class StructureList implements \SeekableIterator, \Countable
     
     private $_index = 0;
     
-    public function __construct(array $list = null)
+    protected $_structureClassName = '\Sokil\Rest\Transport\Structure';
+    
+    public function __construct(array $list = null, $structureClassName = null)
     {
         if($list) {
             $this->_list = $list;
         }
+        
+        if($structureClassName) {
+            $this->_structureClassName = $structureClassName;
+        }
     }
     
-    protected function _getStructureClassName(array $data)
+    private function _getStructureClassName(array $data)
     {
-        return '\Sokil\Rest\Transport\Structure';
+        if(is_callable($this->_structureClassName)) {
+            $classNameGenerator = $this->_structureClassName;
+            return $classNameGenerator($data);
+        } else {
+            return $this->_structureClassName;
+        }
     }
     
     public function setFromArray(array $list)
