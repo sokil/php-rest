@@ -43,16 +43,16 @@ class Request
     {
         $this->_factory = $factory;
         
+        $url = ltrim($this->_url, '/');
+        
         // prepare uri
         if($urlParameters) {
-            $url = array($this->_url, $urlParameters);
+            $url = array($url, $urlParameters);
         } else {
             // check if placeholders exists
-            if(strpos($this->_url, '{')) {
+            if(strpos($url, '{')) {
                 throw new Exception('Url parameters not specified');
             }
-            
-            $url = $this->_url;
         }
         
         // create request

@@ -4,7 +4,7 @@ namespace Sokil\Rest\Client;
 
 class CachingTest extends \Guzzle\Tests\GuzzleTestCase
 {
-    public function testReadFromCache()
+    public function _testReadFromWikiCache()
     {
         /**
          * Init factory

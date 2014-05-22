@@ -155,5 +155,16 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             'error',
         ), $callStack);
     }
+    
+    public function testBuildUrlForRequest()
+    {
+        // configure subscriber
+        $factory = new Factory('http://localhost/basepath');
+        $factory->setRequestClassNamespace('\Sokil\Rest\Client\RequestMock');
+        
+        $request = $factory->createRequest('GetRequestMock');
+        
+        $this->assertEquals('http://localhost/basepath/some/resource', $request->getUrl());
+    }    
 }
 
