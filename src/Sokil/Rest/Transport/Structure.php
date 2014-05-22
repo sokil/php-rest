@@ -62,10 +62,10 @@ class Structure implements \Serializable
         return isset($this->_data[$name]) ? $this->_data[$name] : null;
     }
     
-    public function get($selector)
+    public function get($selector, $default = null)
     {
         if(false === strpos($selector, '.')) {
-            return  isset($this->_data[$selector]) ? $this->_data[$selector] : null;
+            return  isset($this->_data[$selector]) ? $this->_data[$selector] : $default;
         }
 
         $value = $this->_data;
