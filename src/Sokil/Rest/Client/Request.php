@@ -74,6 +74,15 @@ class Request
     
     public function init() { }
     
+    /**
+     * 
+     * @return \Sokil\Rest\Client\Factory
+     */
+    public function getFactory()
+    {
+        return $this->_factory;
+    }
+    
     public function getUrl()
     {
         return $this->_request->getUrl();
