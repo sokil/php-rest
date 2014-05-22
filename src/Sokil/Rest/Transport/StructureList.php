@@ -2,7 +2,7 @@
 
 namespace Sokil\Rest\Transport;
 
-class StructureList implements \Iterator, \Countable
+class StructureList implements \SeekableIterator, \Countable
 {
     private $_list = array();
     
@@ -59,6 +59,16 @@ class StructureList implements \Iterator, \Countable
     public function rewind()
     {
         $this->_index = 0;
+    }
+    
+    public function seek($index)
+    {
+        if (!isset($this->_list[$index]))
+        {
+            throw new \OutOfBoundsException("Invalid index ($index)");
+        }
+
+        $this->_index = $index;
     }
     
     public function count()
