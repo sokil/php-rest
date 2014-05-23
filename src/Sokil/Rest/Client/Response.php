@@ -38,7 +38,7 @@ class Response
     public function __call($name, $arguments)
     {
         $result = call_user_func_array(array($this->_structure, $name), $arguments);
-        if($result instanceof \Sokil\Rest\Transport\Structure) {
+        if($result === $this->_structure) {
             return $this;
         }
         
