@@ -84,6 +84,11 @@ class Response
         return (string) $this->_response;
     }
     
+    public function toArray()
+    {
+        return $this->_structure->toArray();
+    }
+    
     public function isCacheable()
     {
         return $this->_response->canCache();
