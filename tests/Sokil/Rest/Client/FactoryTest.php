@@ -16,7 +16,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function testCreateSignedRequest()
     {
         // prepare response
-        $response = new \Guzzle\Http\Message\Response(200);
+        $response = new \Guzzle\Http\Message\Response(200, array(
+            'Content-type'  => 'application/json',
+        ));
+        
         $response->setBody(json_encode(array(
             'error' => 0,
         )));
