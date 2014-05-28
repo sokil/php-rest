@@ -6,9 +6,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class Request
 {
-    const ACTION_CREATE = 'PUT';
+    const ACTION_CREATE = 'POST';
     const ACTION_READ   = 'GET';
-    const ACTION_UPDATE = 'POST';
+    const ACTION_UPDATE = 'PUT';
     const ACTION_DELETE = 'DELETE';
     
     /**
