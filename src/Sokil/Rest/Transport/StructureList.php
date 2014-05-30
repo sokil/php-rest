@@ -43,6 +43,10 @@ class StructureList implements \SeekableIterator, \Countable
      */
     public function current()
     {
+        if(!isset($this->_list[$this->_index])) {
+            return null;
+        }
+        
         $data = $this->_list[$this->_index];
         $className = $this->_getStructureClassName($data);
         
