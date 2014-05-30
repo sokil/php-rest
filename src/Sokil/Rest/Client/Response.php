@@ -37,6 +37,10 @@ class Response
     
     public function __call($name, $arguments)
     {
+        if(!method_exists($this->_structure, $name)) {
+            throw new \Exception('Wrong method specified');
+        }
+        
         $result = call_user_func_array(array($this->_structure, $name), $arguments);
         if($result === $this->_structure) {
             return $this;
