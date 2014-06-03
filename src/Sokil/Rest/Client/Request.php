@@ -200,7 +200,7 @@ class Request
     }
     
     /**
-     * @return \Sokil\Rest\Response
+     * @return \Sokil\Rest\Client\Response
      */
     public function send()
     {
