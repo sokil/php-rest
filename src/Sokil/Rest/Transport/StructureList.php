@@ -6,8 +6,6 @@ class StructureList implements \SeekableIterator, \Countable
 {
     private $_list = array();
     
-    private $_index = 0;
-    
     protected $_structureClassName = '\Sokil\Rest\Transport\Structure';
     
     public function __construct(array $list = null, $structureClassName = null)
@@ -43,44 +41,46 @@ class StructureList implements \SeekableIterator, \Countable
      */
     public function current()
     {
-        if(!isset($this->_list[$this->_index])) {
+        $data = current($this->_list);
+        if(false === $data) {
             return null;
         }
         
-        $data = $this->_list[$this->_index];
         $className = $this->_getStructureClassName($data);
-        
         return new $className($data);
     }
     
     public function next()
     {
-        $this->_index++;
+        next($this->_list);
     }
     
     public function valid()
     {
-        return isset($this->_list[$this->_index]);
+        return null !== $this->key();
     }
     
     public function key()
     {
-        return $this->_index;
+        return key($this->_list);
     }
     
     public function rewind()
     {
-        $this->_index = 0;
+        reset($this->_list);
     }
     
     public function seek($index)
     {
-        if (!isset($this->_list[$index]))
-        {
+        if (!isset($this->_list[$index])) {
             throw new \OutOfBoundsException("Invalid index ($index)");
         }
 
-        $this->_index = $index;
+        $this->rewind();
+        
+        while($index !== $this->key()) {
+            $this->next();
+        }
     }
     
     public function count()
@@ -129,8 +129,8 @@ class StructureList implements \SeekableIterator, \Countable
     
     public function each($callback) 
     {        
-        foreach($this as $structure) {
-            call_user_func($callback, $structure, $this->_index);
+        foreach($this as $index => $structure) {
+            call_user_func($callback, $structure, $index);
         }
         
         return $this;
@@ -138,10 +138,10 @@ class StructureList implements \SeekableIterator, \Countable
     
     public function map($callback)
     {
-        foreach($this as $structure) {
+        foreach($this as $index => $structure) {
             $this->set(
-                $this->_index,
-                call_user_func($callback, $structure, $this->_index)
+                $index,
+                call_user_func($callback, $structure, $index)
             );
         }
 
@@ -151,8 +151,8 @@ class StructureList implements \SeekableIterator, \Countable
     public function filter($callback)
     {
         $list = new self;
-        foreach($this as $structure) {
-            if(call_user_func($callback, $structure, $this->_index)) {
+        foreach($this as $index => $structure) {
+            if(call_user_func($callback, $structure, $index)) {
                 $list->push($structure);
             }
         }

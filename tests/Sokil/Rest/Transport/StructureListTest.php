@@ -4,6 +4,26 @@ namespace Sokil\Rest\Transport;
 
 class StructureListTest extends \PHPUnit_Framework_TestCase
 {
+    public function testMixedKey()
+    {
+        $list = new StructureList(array(
+            'a' => array('key' => 'value0'),
+            'b' => array('key' => 'value1'),
+            'c' => array('key' => 'value2'),
+        ));
+        
+        $structure = $list->current();
+        $this->assertEquals('a', $list->key());
+        $this->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
+        $this->assertEquals('value0', $list->current()->get('key'));
+        
+        $list->next();
+        $structure = $list->current();
+        $this->assertEquals('b', $list->key());
+        $this->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
+        $this->assertEquals('value1', $list->current()->get('key'));
+    }
+    
     public function testEach()
     {
         $list = new StructureList;
