@@ -37,6 +37,15 @@ class StructureList implements \SeekableIterator, \Countable
     
     /**
      * 
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->_list;
+    }
+    
+    /**
+     * 
      * @return \Sokil\Rest\StructureList
      */
     public function current()
