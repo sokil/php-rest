@@ -4,7 +4,7 @@ namespace Sokil\Rest\Transport;
 
 class Structure implements StructureInterface
 {
-    protected $_data;
+    protected $_data = array();
     
     public function __construct(array $data = null)
     {
