@@ -92,4 +92,48 @@ class StructureListTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals(0, $structure->get('key') % 2);
         });
     }
+    
+    public function testArrayAccessOffsetSet()
+    {
+        $list = new StructureList();
+        
+        $list['hello'] = array('param' => 'hello_value');
+        
+        $this->assertEquals('hello', $list->key());
+        $this->assertEquals('hello_value', $list->current()->get('param'));
+    }
+    
+    public function testArrayAccessOffsetGet()
+    {
+        $list = new StructureList(array(
+            'hello' => array('param' => 'hello_value'),
+        ));
+        
+        $this->assertEquals('hello_value', $list['hello']->get('param'));
+    }
+    
+    public function testArrayAccessOffsetExists()
+    {
+        $list = new StructureList(array(
+            'hello' => array('param' => 'hello_value'),
+        ));
+        
+        $this->assertTrue(isset($list['hello']));
+        $this->assertFalse(isset($list['UNEXISTED_KEY']));
+    }
+    
+    public function testArrayAccessOffsetUnset()
+    {
+        $list = new StructureList(array(
+            'hello' => array('param' => 'hello_value'),
+        ));
+        
+        unset($list['hello']);
+        
+        $this->assertEquals(0, count($list));
+    }
+    
+    
+        
+       
 }

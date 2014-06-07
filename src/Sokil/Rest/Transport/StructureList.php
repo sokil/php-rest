@@ -2,7 +2,7 @@
 
 namespace Sokil\Rest\Transport;
 
-class StructureList implements \SeekableIterator, \Countable
+class StructureList implements \SeekableIterator, \Countable, \ArrayAccess
 {
     private $_list = array();
     
@@ -55,6 +55,11 @@ class StructureList implements \SeekableIterator, \Countable
             return null;
         }
         
+        return $this->_createStructureFromArray($data);
+    }
+    
+    private function _createStructureFromArray(array $data)
+    {
         $className = $this->_getStructureClassName($data);
         return new $className($data);
     }
@@ -167,6 +172,35 @@ class StructureList implements \SeekableIterator, \Countable
         }
         
         return $list;
+    }
+    
+    public function offsetSet($offset, $value)
+    {
+        if(!is_array($value)) {
+            throw new \Exception('Must be array');
+        }
+        
+        $this->_list[$offset] = $value;
+        return $this;
+    }
+    
+    public function offsetGet($offset)
+    {
+        if(!$this->_list[$offset]) {
+            return null;
+        }
+        
+        return $this->_createStructureFromArray($this->_list[$offset]);
+    }
+    
+    public function offsetExists($offset)
+    {
+        return isset($this->_list[$offset]);
+    }
+    
+    public function offsetUnset($offset)
+    {
+        unset($this->_list[$offset]);
     }
 }
 
