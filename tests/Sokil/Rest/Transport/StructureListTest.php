@@ -2,6 +2,11 @@
 
 namespace Sokil\Rest\Transport;
 
+class StructureMock extends \Sokil\Rest\Transport\Structure
+{
+    
+}
+
 class StructureListTest extends \PHPUnit_Framework_TestCase
 {
     public function testMixedKey()
@@ -91,6 +96,68 @@ class StructureListTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
             $this->assertEquals(0, $structure->get('key') % 2);
         });
+    }
+    
+    public function testRewindAfterFilter()
+    {
+        $list = new StructureList(array(
+            array('key' => 0),
+            array('key' => 1),
+            array('key' => 2),
+            array('key' => 3),
+            array('key' => 4),
+        ));
+        
+        // filter list
+        $list->filter(function() {
+            return false;
+        });
+        
+        // test list
+        $this->assertEquals(0, $list->current()->get('key'));
+    }
+    
+    public function testStructureListIterationType()
+    {
+        $list = new StructureList(
+            array(
+                array('key' => 0),
+                array('key' => 1),
+                array('key' => 2),
+                array('key' => 3),
+                array('key' => 4),
+            ),
+            '\Sokil\Rest\Transport\StructureMock'
+        );
+        
+        // check list types
+        foreach($list as $structure) {
+            $this->assertInstanceOf('\Sokil\Rest\Transport\StructureMock', $structure);
+        }
+    }
+    
+    public function testFilteredListStructureType()
+    {
+        $list = new StructureList(
+            array(
+                array('key' => 0),
+                array('key' => 1),
+                array('key' => 2),
+                array('key' => 3),
+                array('key' => 4),
+            ),
+            '\Sokil\Rest\Transport\StructureMock'
+        );
+        
+        // filter list
+        $filteredList = $list->filter(function() {
+            return false;
+        });
+        
+        // check list types
+        foreach($filteredList as $structure) {
+            $this->assertInstanceOf('\Sokil\Rest\Transport\StructureMock', $structure);
+        }
     }
     
     public function testArrayAccessOffsetSet()
