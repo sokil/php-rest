@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "php": ">5.3",
+        "php": ">=5.3",
         "guzzle/guzzle": "v3.9.1",
         "sokil/php-guzzlecomponents": "0.*",
         "psr/log": "~1.0"
