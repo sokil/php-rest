@@ -82,6 +82,7 @@ class StructureList implements \SeekableIterator, \Countable, \ArrayAccess
     public function rewind()
     {
         reset($this->_list);
+        return $this;
     }
     
     public function seek($index)
@@ -147,6 +148,8 @@ class StructureList implements \SeekableIterator, \Countable, \ArrayAccess
             call_user_func($callback, $structure, $index);
         }
         
+        $this->rewind();
+        
         return $this;
     }
     
@@ -158,18 +161,22 @@ class StructureList implements \SeekableIterator, \Countable, \ArrayAccess
                 call_user_func($callback, $structure, $index)
             );
         }
+        
+        $this->rewind();
 
         return $this;
     }
     
     public function filter($callback)
     {
-        $list = new self;
+        $list = new static;
         foreach($this as $index => $structure) {
             if(call_user_func($callback, $structure, $index)) {
                 $list->push($structure);
             }
         }
+        
+        $this->rewind();
         
         return $list;
     }
