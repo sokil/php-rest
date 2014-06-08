@@ -151,7 +151,7 @@ class StructureListTest extends \PHPUnit_Framework_TestCase
         
         // filter list
         $filteredList = $list->filter(function() {
-            return false;
+            return true;
         });
         
         // check list types

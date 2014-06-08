@@ -169,7 +169,7 @@ class StructureList implements \SeekableIterator, \Countable, \ArrayAccess
     
     public function filter($callback)
     {
-        $list = new static;
+        $list = new static(null, $this->_structureClassName);
         foreach($this as $index => $structure) {
             if(call_user_func($callback, $structure, $index)) {
                 $list->push($structure);
