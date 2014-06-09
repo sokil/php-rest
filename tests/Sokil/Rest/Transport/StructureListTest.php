@@ -68,8 +68,8 @@ class StructureListTest extends \PHPUnit_Framework_TestCase
         
         // test list
         $list->each(function($structure, $index) use($that) {
-            $this->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
-            $this->assertEquals('updated' . $index, $structure->get('key'));
+            $that->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
+            $that->assertEquals('updated' . $index, $structure->get('key'));
         });
     }
     
