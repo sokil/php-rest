@@ -2,7 +2,7 @@
 
 namespace Sokil\Rest\Client;
 
-class CachingTest extends \Guzzle\Tests\GuzzleTestCase
+class CachingTest_ extends \Guzzle\Tests\GuzzleTestCase
 {
     public function _testReadFromWikiCache()
     {
