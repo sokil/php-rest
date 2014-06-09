@@ -38,9 +38,10 @@ class StructureListTest extends \PHPUnit_Framework_TestCase
             array('key' => 'value2'),
         ));
         
-        $list->each(function($structure, $index) {
-            $this->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
-            $this->assertEquals('value' . $index, $structure->get('key'));
+        $that = $this; 
+        $list->each(function($structure, $index) use($that) {
+            $that->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
+            $that->assertEquals('value' . $index, $structure->get('key'));
         });
     }
     
@@ -54,9 +55,10 @@ class StructureListTest extends \PHPUnit_Framework_TestCase
         ));
         
         // map list
-        $list->map(function($structure, $index) {
-            $this->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
-            $this->assertEquals('value' . $index, $structure->get('key'));
+        $that = $this;
+        $list->map(function($structure, $index) use($that) {
+            $that->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
+            $that->assertEquals('value' . $index, $structure->get('key'));
             
             // update
             $structure->set('key', 'updated' . $index);
@@ -65,7 +67,7 @@ class StructureListTest extends \PHPUnit_Framework_TestCase
         });
         
         // test list
-        $list->each(function($structure, $index) {
+        $list->each(function($structure, $index) use($that) {
             $this->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
             $this->assertEquals('updated' . $index, $structure->get('key'));
         });
@@ -83,18 +85,19 @@ class StructureListTest extends \PHPUnit_Framework_TestCase
         ));
         
         // filter list
-        $filteredList = $list->filter(function($structure, $index) {
-            $this->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
-            $this->assertEquals($index, $structure->get('key'));
+        $that = $this;
+        $filteredList = $list->filter(function($structure, $index) use($that) {
+            $that->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
+            $that->assertEquals($index, $structure->get('key'));
             
             // filter
             return $structure->get('key') % 2 == 0;
         });
         
         // test list
-        $filteredList->each(function($structure) {
-            $this->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
-            $this->assertEquals(0, $structure->get('key') % 2);
+        $filteredList->each(function($structure) use($that) {
+            $that->assertInstanceOf('\Sokil\Rest\Transport\Structure', $structure);
+            $that->assertEquals(0, $structure->get('key') % 2);
         });
     }
     
