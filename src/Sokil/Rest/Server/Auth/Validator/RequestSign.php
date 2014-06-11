@@ -52,7 +52,7 @@ class RequestSign extends \Sokil\Rest\Server\Auth\Validator
         }
         
         $this->_body = $_GET;
-        unset($this->_body['sign']);
+        unset($this->_body[$this->_signQueryParamName]);
         ksort($this->_body);
         $this->_body = http_build_query($this->_body);
         
