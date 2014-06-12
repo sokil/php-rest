@@ -242,6 +242,12 @@ class Factory
         return $this;
     }
     
+    public function onParseResponse($callable)
+    {
+        $this->getConnection()->getEventDispatcher()->addListener('successParseResponse', $callable);
+        return $this;
+    }
+    
     public function onError($callable)
     {
         $this->getConnection()->getEventDispatcher()->addListener('request.error', $callable);

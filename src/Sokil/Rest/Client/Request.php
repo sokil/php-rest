@@ -231,6 +231,12 @@ abstract class Request
                 $this->_structureClassName
             );
             
+            // trigger event
+            $this->_request->getEventDispatcher()->dispatch('successParseResponse', new \Guzzle\Common\Event(array(
+                'request' => $this,
+                'response' => $this->_response,
+            )));
+            
             // log
             if($this->hasLogger()) {
                 $this->getLogger()->debug((string) $this->_request . PHP_EOL . (string) $this->_rawResponse);
@@ -332,6 +338,12 @@ abstract class Request
     public function onSuccess($callable)
     {
         $this->_request->getEventDispatcher()->addListener('request.success', $callable);
+        return $this;
+    }
+    
+    public function onParseResponse($callable)
+    {
+        $this->_request->getEventDispatcher()->addListener('successParseResponse', $callable);
         return $this;
     }
     
