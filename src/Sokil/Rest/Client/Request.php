@@ -239,6 +239,10 @@ abstract class Request
             return $this->_response;
             
         } catch (\Exception $e) {
+            if($this->hasLogger()) {
+                $this->getLogger()->debug((string) $e);
+            }
+            
             return false;
         }
 
