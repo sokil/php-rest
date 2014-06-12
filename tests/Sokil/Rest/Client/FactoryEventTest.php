@@ -153,8 +153,10 @@ class FactoryEventTest extends \PHPUnit_Framework_TestCase
         
         $status = new \stdclass;
         $status->error = 0;
-        $factory->onParseResponse(function($event) use($status) {
-            $this->assertInstanceof('\Sokil\Rest\Client\Response', $event['response']);
+        
+        $that = $this;
+        $factory->onParseResponse(function($event) use($that, $status) {
+            $that->assertInstanceof('\Sokil\Rest\Client\Response', $event['response']);
             $status->error = $event['response']->get('error');
         });
         
