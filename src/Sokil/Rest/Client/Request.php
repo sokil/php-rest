@@ -79,7 +79,7 @@ abstract class Request
             return call_user_func_array(array($behavior, $name), $arguments);
         }
         
-        throw new Exception('Document has no method "' . $name . '"');
+        throw new Exception('Request class has no method "' . $name . '"');
     }
     
     public function __destruct()
@@ -300,6 +300,8 @@ abstract class Request
     
     public function attachBehavior($name, Behavior $behavior)
     {
+        $behavior->setOwner($this);
+        
         $this->_behaviors[$name] = $behavior;
         
         return $this;

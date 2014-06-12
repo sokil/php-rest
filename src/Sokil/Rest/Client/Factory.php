@@ -122,7 +122,9 @@ class Factory
         
         // attach behaviors
         if($this->_behaviors) {
-            $request->attachBehaviors($this->_behaviors);
+            foreach($this->_behaviors as $behaviorName => $behavior) {
+                $request->attachBehavior($behaviorName, clone $behavior);
+            }
         }
         
         return $request;
