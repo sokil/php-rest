@@ -259,7 +259,7 @@ abstract class Request
         return $this->_rawResponse;
     }
     
-    public function behaviors()
+    protected function behaviors()
     {
         return array();
     }

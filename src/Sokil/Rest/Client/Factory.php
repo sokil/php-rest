@@ -248,7 +248,7 @@ class Factory
         return $this;
     }
     
-    public function behaviors()
+    protected function behaviors()
     {
         return array();
     }
