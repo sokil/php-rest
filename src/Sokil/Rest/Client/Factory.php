@@ -30,6 +30,8 @@ class Factory
     
     private $_connection;
     
+    private $_behaviors = array();
+    
     /**
      * 
      * @param string $host
@@ -42,6 +44,10 @@ class Factory
             $this->_host = $host;
         }
         
+        // add behaviors
+        $this->attachBehaviors($this->behaviors());
+        
+        // init
         $this->init();
     }
     
@@ -112,6 +118,11 @@ class Factory
         // add logger
         if($this->hasLogger()) {
             $request->setLogger($this->getLogger());
+        }
+        
+        // attach behaviors
+        if($this->_behaviors) {
+            $request->attachBehaviors($this->_behaviors);
         }
         
         return $request;
@@ -234,6 +245,45 @@ class Factory
     public function onError($callable)
     {
         $this->getConnection()->getEventDispatcher()->addListener('request.error', $callable);
+        return $this;
+    }
+    
+    public function behaviors()
+    {
+        return array();
+    }
+    
+    public function attachBehaviors(array $behaviors)
+    {
+        foreach($behaviors as $name => $behavior) {
+            
+            if(!($behavior instanceof Behavior)) {
+                if(empty($behavior['class'])) {
+                    throw new Exception('Behavior class not specified');
+                }
+
+                $className = $behavior['class'];
+                unset($behavior['class']);
+
+                $behavior = new $className($behavior);
+            }
+            
+            $this->attachBehavior($name, $behavior);
+        }
+        
+        return $this;
+    }
+    
+    public function attachBehavior($name, Behavior $behavior)
+    {
+        $this->_behaviors[$name] = $behavior;
+        
+        return $this;
+    }
+    
+    public function clearBehaviors()
+    {
+        $this->_behaviors = array();
         return $this;
     }
     
