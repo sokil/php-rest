@@ -28,8 +28,16 @@ abstract class Request
     
     protected $_structureClassName = '\Sokil\Rest\Transport\Structure';
     
+    /**
+     *
+     * @var \Guzzle\Http\Message\Response
+     */
     private $_rawResponse;
     
+    /**
+     *
+     * @var \Sokil\Rest\Client\Response
+     */
     private $_response;
     
     /**
