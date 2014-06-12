@@ -148,7 +148,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             
         try {
             $response = $request->send();
-            $this->fail('Must be exception due to 404 error');
+            $this->assertFalse($response);
         } catch (\Guzzle\Http\Exception\ClientErrorResponseException $e) {}
             
         $this->assertEquals(array(
