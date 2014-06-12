@@ -38,6 +38,8 @@ abstract class Request
      */
     private $_logger;
     
+    private $_behaviors = array();
+    
     public function __construct(Factory $factory, array $urlParameters = null)
     {
         $this->_factory = $factory;
@@ -58,6 +60,9 @@ abstract class Request
         $this->_request = $factory
             ->getConnection()
             ->createRequest($this->_requestMethod, $url);
+        
+        // add behaviors
+        $this->attachBehaviors($this->behaviors());
         
         // do post-init tasks
         $this->init();
@@ -238,6 +243,45 @@ abstract class Request
     public function getRawResponse()
     {
         return $this->_rawResponse;
+    }
+    
+    public function behaviors()
+    {
+        return array();
+    }
+    
+    public function attachBehaviors(array $behaviors)
+    {
+        foreach($behaviors as $name => $behavior) {
+            
+            if(!($behavior instanceof Behavior)) {
+                if(empty($behavior['class'])) {
+                    throw new Exception('Behavior class not specified');
+                }
+
+                $className = $behavior['class'];
+                unset($behavior['class']);
+
+                $behavior = new $className($behavior);
+            }
+            
+            $this->attachBehavior($name, $behavior);
+        }
+        
+        return $this;
+    }
+    
+    public function attachBehavior($name, Behavior $behavior)
+    {
+        $this->_behaviors[$name] = $behavior;
+        
+        return $this;
+    }
+    
+    public function clearBehaviors()
+    {
+        $this->_behaviors = array();
+        return $this;
     }
     
     public function addSubscriber(EventSubscriberInterface $subscriber)
