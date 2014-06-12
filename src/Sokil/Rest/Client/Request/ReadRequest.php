@@ -8,10 +8,4 @@ namespace Sokil\Rest\Client\Request;
 class ReadRequest extends \Sokil\Rest\Client\Request
 {
     protected $_requestMethod = 'GET';
-    
-    public function setBody($body, $contentType)
-    {        
-        $this->_request->setBody($body, $contentType);
-        return $this;
-    }
 }
