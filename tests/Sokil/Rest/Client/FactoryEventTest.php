@@ -152,18 +152,17 @@ class FactoryEventTest extends \PHPUnit_Framework_TestCase
         $factory->addSubscriber($plugin);
         
         $status = new \stdclass;
-        $status->ok = 0;
-        $factory->onError(function() use($status) {
-            $status->ok = 1;
+        $status->status = 0;
+        $factory->onError(function($event) use($status) {
+            $status->status = $event['response']->getStatusCode();
         });
         
         // send
-        try {
-            $factory->createRequest('GetRequestMock')->send();
-        } catch (\Exception $e) {}
+        $response = $factory->createRequest('GetRequestMock')->send();
+        $this->assertFalse($response);
         
         // check if event occured
-        $this->assertEquals(1, $status->ok);
+        $this->assertEquals(404, $status->status);
     }
 }
 

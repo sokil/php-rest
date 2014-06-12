@@ -224,21 +224,24 @@ abstract class Request
     {
         try {
             $this->_rawResponse = $this->_request->send();
+            
+            // create response
+            $this->_response = new Response(
+                $this->_rawResponse, 
+                $this->_structureClassName
+            );
+            
+            // log
+            if($this->hasLogger()) {
+                $this->getLogger()->debug((string) $this->_request . PHP_EOL . (string) $this->_rawResponse);
+            }
+            
+            return $this->_response;
+            
         } catch (\Exception $e) {
-            $this->_rawResponse = $this->_request->getResponse();
-            throw $e;
+            return false;
         }
-        
-        // create response
-        $this->_response = new Response($this->_rawResponse, $this->_structureClassName);
-        
-        // log
-        if($this->hasLogger()) {
-            $this->getLogger()->debug((string) $this->_request . PHP_EOL . (string) $this->_rawResponse);
-        }
-        
-        
-        return $this->_response;
+
     }
     
     public function getResponse()
