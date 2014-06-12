@@ -41,7 +41,11 @@ class Factory
         if($host) {
             $this->_host = $host;
         }
+        
+        $this->init();
     }
+    
+    protected function init() {}
     
     /**
      * Get Guzzle RESTful client
