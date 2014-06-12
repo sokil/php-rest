@@ -4,12 +4,13 @@ namespace Sokil\Rest\Client;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class Request
+abstract class Request
 {
-    const ACTION_CREATE = 'POST';
-    const ACTION_READ   = 'GET';
-    const ACTION_UPDATE = 'PUT';
-    const ACTION_DELETE = 'DELETE';
+    /**
+     *
+     * @var request method defined in realisation of this abstract class
+     */
+    protected $_requestMethod;
     
     /**
      *
@@ -24,8 +25,6 @@ class Request
     protected $_request;
     
     protected $_url;
-    
-    protected $_action;
     
     protected $_structureClassName = '\Sokil\Rest\Transport\Structure';
     
@@ -58,7 +57,7 @@ class Request
         // create request
         $this->_request = $factory
             ->getConnection()
-            ->createRequest($this->_action, $url);
+            ->createRequest($this->_requestMethod, $url);
         
         // do post-init tasks
         $this->init();
