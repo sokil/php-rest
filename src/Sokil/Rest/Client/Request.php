@@ -68,6 +68,20 @@ abstract class Request
         $this->init();
     }
     
+    public function __call($name, $arguments) {
+        
+        // behaviors
+        foreach($this->_behaviors as $behavior) {
+            if(!method_exists($behavior, $name)) {
+                continue;
+            }
+            
+            return call_user_func_array(array($behavior, $name), $arguments);
+        }
+        
+        throw new Exception('Document has no method "' . $name . '"');
+    }
+    
     public function __destruct()
     {
         $this->_request = null;
