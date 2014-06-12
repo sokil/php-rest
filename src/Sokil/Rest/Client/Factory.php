@@ -203,6 +203,36 @@ class Factory
         return $this;
     }
     
+    public function onBeforeSend($callable)
+    {
+        $this->getConnection()->getEventDispatcher()->addListener('request.before_send', $callable);
+        return $this;
+    }
+    
+    public function onSend($callable)
+    {
+        $this->getConnection()->getEventDispatcher()->addListener('request.sent', $callable);
+        return $this;
+    }
+    
+    public function onCompleteSend($callable)
+    {
+        $this->getConnection()->getEventDispatcher()->addListener('request.complete', $callable);
+        return $this;
+    }
+    
+    public function onSuccess($callable)
+    {
+        $this->getConnection()->getEventDispatcher()->addListener('request.success', $callable);
+        return $this;
+    }
+    
+    public function onError($callable)
+    {
+        $this->getConnection()->getEventDispatcher()->addListener('request.error', $callable);
+        return $this;
+    }
+    
     /**
      * If request method and url insufficient as key and must be augment 
      * @return Callable

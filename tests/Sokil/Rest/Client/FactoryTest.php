@@ -15,18 +15,17 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     
     public function testCreateSignedRequest()
     {
-        // prepare response
-        $response = new \Guzzle\Http\Message\Response(200, array(
-            'Content-type'  => 'application/json',
-        ));
-        
-        $response->setBody(json_encode(array(
-            'error' => 0,
-        )));
-        
         // replace response
         $plugin = new \Guzzle\Plugin\Mock\MockPlugin;
-        $plugin->addResponse($response);
+        $plugin->addResponse(new \Guzzle\Http\Message\Response(
+            200, 
+            array(
+                'Content-type'  => 'application/json',
+            ),
+            json_encode(array(
+                'error' => 0,
+            ))
+        ));
         
         // configure subscriber
         $signKey = 'APP_KEY';
