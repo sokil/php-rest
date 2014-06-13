@@ -48,8 +48,6 @@ abstract class Request
     
     private $_behaviors = array();
     
-    private $_lastException;
-    
     public function __construct(Factory $factory, array $urlParameters = null)
     {
         $this->_factory = $factory;
@@ -263,24 +261,13 @@ abstract class Request
             
         } catch (\Exception $e) {
             
-            $this->_lastException = $e;
-            
             if($this->hasLogger()) {
                 $this->getLogger()->debug((string) $e);
             }
             
-            return false;
+            throw $e;
         }
 
-    }
-    
-    /**
-     * Get exception, thrown on last request
-     * @return \Exception
-     */
-    public function getLastException()
-    {
-        return $this->_lastException;
     }
     
     public function getResponse()

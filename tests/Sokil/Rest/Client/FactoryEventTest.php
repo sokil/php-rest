@@ -170,6 +170,9 @@ class FactoryEventTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(234, $status->error);
     }
     
+    /**
+     * @expectedException \Guzzle\Http\Exception\BadResponseException
+     */
     public function testOnError()
     {
         // replace response
@@ -195,11 +198,18 @@ class FactoryEventTest extends \PHPUnit_Framework_TestCase
         });
         
         // send
-        $response = $factory->createRequest('GetRequestMock')->send();
-        $this->assertFalse($response);
+        $request = $factory->createRequest('GetRequestMock');
         
-        // check if event occured
-        $this->assertEquals(404, $status->status);
+        try {
+            $response = $request->send();
+        } catch (\Exception $e) {
+            
+            // check if event occured
+            $this->assertEquals(404, $status->status);
+            
+            throw $e;
+        }
+        
     }
 }
 
