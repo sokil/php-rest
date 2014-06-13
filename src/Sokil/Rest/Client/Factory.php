@@ -222,7 +222,7 @@ class Factory
     
     public function onBeforeSend($callable)
     {
-        $this->getConnection()->getEventDispatcher()->addListener('request.before_send', $callable);
+        $this->getConnection()->getEventDispatcher()->addListener('onBeforeSend', $callable);
         return $this;
     }
     
@@ -246,7 +246,7 @@ class Factory
     
     public function onParseResponse($callable)
     {
-        $this->getConnection()->getEventDispatcher()->addListener('successParseResponse', $callable);
+        $this->getConnection()->getEventDispatcher()->addListener('onParseResponse', $callable);
         return $this;
     }
     

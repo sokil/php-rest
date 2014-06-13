@@ -231,6 +231,13 @@ abstract class Request
     public function send()
     {
         try {
+            
+            // disbatch beforeSend event
+            $this->_request->getEventDispatcher()->dispatch('onBeforeSend', new \Guzzle\Common\Event(array(
+                'request'   => $this,
+            )));
+            
+            // send 
             $this->_rawResponse = $this->_request->send();
             
             // create response
@@ -240,7 +247,7 @@ abstract class Request
             );
             
             // trigger event
-            $this->_request->getEventDispatcher()->dispatch('successParseResponse', new \Guzzle\Common\Event(array(
+            $this->_request->getEventDispatcher()->dispatch('onParseResponse', new \Guzzle\Common\Event(array(
                 'request' => $this,
                 'response' => $this->_response,
             )));
@@ -329,7 +336,7 @@ abstract class Request
     
     public function onBeforeSend($callable)
     {
-        $this->_request->getEventDispatcher()->addListener('request.before_send', $callable);
+        $this->_request->getEventDispatcher()->addListener('onBeforeSend', $callable);
         return $this;
     }
     
@@ -353,7 +360,7 @@ abstract class Request
     
     public function onParseResponse($callable)
     {
-        $this->_request->getEventDispatcher()->addListener('successParseResponse', $callable);
+        $this->_request->getEventDispatcher()->addListener('onParseResponse', $callable);
         return $this;
     }
     
