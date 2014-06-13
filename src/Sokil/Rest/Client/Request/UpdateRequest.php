@@ -14,4 +14,9 @@ class UpdateRequest extends \Sokil\Rest\Client\Request
         $this->_request->setBody($body, $contentType);
         return $this;
     }
+    
+    public function getBody()
+    {
+        return $this->_request->getBody();
+    }
 }
