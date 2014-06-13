@@ -335,39 +335,39 @@ abstract class Request
         return $this;
     }
     
-    public function onBeforeSend($callable)
+    public function onBeforeSend($callable, $priority = 0)
     {
-        $this->_request->getEventDispatcher()->addListener('onBeforeSend', $callable);
+        $this->_request->getEventDispatcher()->addListener('onBeforeSend', $callable, $priority);
         return $this;
     }
     
-    public function onSend($callable)
+    public function onSend($callable, $priority = 0)
     {
-        $this->_request->getEventDispatcher()->addListener('request.sent', $callable);
+        $this->_request->getEventDispatcher()->addListener('request.sent', $callable, $priority);
         return $this;
     }
     
-    public function onCompleteSend($callable)
+    public function onCompleteSend($callable, $priority = 0)
     {
-        $this->_request->getEventDispatcher()->addListener('request.complete', $callable);
+        $this->_request->getEventDispatcher()->addListener('request.complete', $callable, $priority);
         return $this;
     }
     
-    public function onSuccess($callable)
+    public function onSuccess($callable, $priority = 0)
     {
-        $this->_request->getEventDispatcher()->addListener('request.success', $callable);
+        $this->_request->getEventDispatcher()->addListener('request.success', $callable, $priority);
         return $this;
     }
     
-    public function onParseResponse($callable)
+    public function onParseResponse($callable, $priority = 0)
     {
-        $this->_request->getEventDispatcher()->addListener('onParseResponse', $callable);
+        $this->_request->getEventDispatcher()->addListener('onParseResponse', $callable, $priority);
         return $this;
     }
     
-    public function onError($callable)
+    public function onError($callable, $priority = 0)
     {
-        $this->_request->getEventDispatcher()->addListener('request.error', $callable);
+        $this->_request->getEventDispatcher()->addListener('request.error', $callable, $priority);
         return $this;
     }
     

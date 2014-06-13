@@ -220,39 +220,39 @@ class Factory
         return $this;
     }
     
-    public function onBeforeSend($callable)
+    public function onBeforeSend($callable, $priority = 0)
     {
-        $this->getConnection()->getEventDispatcher()->addListener('onBeforeSend', $callable);
+        $this->getConnection()->getEventDispatcher()->addListener('onBeforeSend', $callable, $priority);
         return $this;
     }
     
-    public function onSend($callable)
+    public function onSend($callable, $priority = 0)
     {
-        $this->getConnection()->getEventDispatcher()->addListener('request.sent', $callable);
+        $this->getConnection()->getEventDispatcher()->addListener('request.sent', $callable, $priority);
         return $this;
     }
     
-    public function onCompleteSend($callable)
+    public function onCompleteSend($callable, $priority = 0)
     {
-        $this->getConnection()->getEventDispatcher()->addListener('request.complete', $callable);
+        $this->getConnection()->getEventDispatcher()->addListener('request.complete', $callable, $priority);
         return $this;
     }
     
-    public function onSuccess($callable)
+    public function onSuccess($callable, $priority = 0)
     {
-        $this->getConnection()->getEventDispatcher()->addListener('request.success', $callable);
+        $this->getConnection()->getEventDispatcher()->addListener('request.success', $callable, $priority);
         return $this;
     }
     
-    public function onParseResponse($callable)
+    public function onParseResponse($callable, $priority = 0)
     {
-        $this->getConnection()->getEventDispatcher()->addListener('onParseResponse', $callable);
+        $this->getConnection()->getEventDispatcher()->addListener('onParseResponse', $callable, $priority);
         return $this;
     }
     
-    public function onError($callable)
+    public function onError($callable, $priority = 0)
     {
-        $this->getConnection()->getEventDispatcher()->addListener('request.error', $callable);
+        $this->getConnection()->getEventDispatcher()->addListener('request.error', $callable, $priority);
         return $this;
     }
     
