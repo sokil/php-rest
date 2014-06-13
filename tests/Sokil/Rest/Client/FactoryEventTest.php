@@ -25,8 +25,10 @@ class FactoryEventTest extends \PHPUnit_Framework_TestCase
         
         $status = new \stdclass;
         $status->ok = 0;
-        $factory->onBeforeSend(function($event) use($status) {
-            $this->assertInstanceOf('\Sokil\Rest\Client\Request', $event['request']);
+        
+        $that = $this;
+        $factory->onBeforeSend(function($event) use($that, $status) {
+            $that->assertInstanceOf('\Sokil\Rest\Client\Request', $event['request']);
             $status->ok = 1;
         });
         
