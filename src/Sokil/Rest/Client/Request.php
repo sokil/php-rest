@@ -48,6 +48,13 @@ abstract class Request
     
     private $_behaviors = array();
     
+    /**
+     * Defibe in child classes if authorizarion required
+     * 
+     * @var boolean 
+     */
+    protected $_authRequired = false;
+    
     public function __construct(Factory $factory, array $urlParameters = null)
     {
         $this->_factory = $factory;
