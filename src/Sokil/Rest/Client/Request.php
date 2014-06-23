@@ -83,6 +83,15 @@ abstract class Request
         $this->init();
     }
     
+    /**
+     * Check if auth required
+     * @return boolean
+     */
+    public function isAuthRequired()
+    {
+        return $this->_authRequired;
+    }
+    
     public function __call($name, $arguments) {
         
         // behaviors
