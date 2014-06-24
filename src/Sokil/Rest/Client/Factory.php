@@ -8,7 +8,7 @@ class Factory
 {
     protected $_requestClassNamespace;
     
-    private $_host;
+    protected $_host;
     
     /**
      *
@@ -28,6 +28,10 @@ class Factory
     
     protected $_curlOptions = array();
     
+    /**
+     *
+     * @var \Guzzle\Http\Client
+     */
     private $_connection;
     
     private $_behaviors = array();
@@ -70,6 +74,10 @@ class Factory
     public function setHost($host)
     {
         $this->_host = $host;
+        if($this->_connection) {
+            $this->_connection->setBaseUrl($host);
+        }
+        
         return $this;
     }
     
