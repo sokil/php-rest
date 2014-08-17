@@ -19,7 +19,7 @@ You can install library through Composer:
 }
 ```
 
-Prohects based on this library
+Projects based on this library
 ------------------------------
 
 * [Instagram API](https://github.com/sokil/php-instagram)
