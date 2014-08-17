@@ -304,6 +304,15 @@ abstract class Request
         return $this->_rawResponse;
     }
     
+    /**
+     * Get plain response body. Useful for error handling when exception occurs
+     * @return string
+     */
+    public function getResponseBody()
+    {
+        return $this->_request->getResponseBody();
+    }
+    
     protected function behaviors()
     {
         return array();
