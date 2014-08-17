@@ -9,7 +9,7 @@ class UpdateRequest extends \Sokil\Rest\Client\Request
 {
     protected $_requestMethod = 'PUT';
     
-    public function setBody($body, $contentType)
+    public function setBody($body, $contentType = null)
     {        
         $this->_request->setBody($body, $contentType);
         return $this;

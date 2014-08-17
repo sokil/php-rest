@@ -9,7 +9,7 @@ class CreateRequest extends \Sokil\Rest\Client\Request
 {
     protected $_requestMethod = 'POST';
     
-    public function setBody($body, $contentType)
+    public function setBody($body, $contentType = null)
     {        
         $this->_request->setBody($body, $contentType);
         return $this;
