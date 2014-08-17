@@ -39,8 +39,6 @@ class Factory
     /**
      * 
      * @param string $host
-     * @param string $requestClassNamespace if not specified in constructor
-     *  then must be defined directly in child class
      */
     public function __construct($host = null)
     {
