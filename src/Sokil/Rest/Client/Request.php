@@ -30,12 +30,6 @@ abstract class Request
     
     /**
      *
-     * @var \Guzzle\Http\Message\Response
-     */
-    private $_rawResponse;
-    
-    /**
-     *
      * @var \Sokil\Rest\Client\Response
      */
     private $_response;
@@ -110,7 +104,6 @@ abstract class Request
     {
         $this->_request = null;
         $this->_response = null;
-        $this->_rawResponse = null;
         $this->_logger = null;
     }
     
@@ -253,12 +246,9 @@ abstract class Request
                 'request'   => $this,
             )));
             
-            // send 
-            $this->_rawResponse = $this->_request->send();
-            
             // create response
             $this->_response = new Response(
-                $this->_rawResponse, 
+                $this->_request->send(), 
                 $this->_structureClassName
             );
             
@@ -270,7 +260,7 @@ abstract class Request
             
             // log
             if($this->hasLogger()) {
-                $this->getLogger()->debug((string) $this->_request . PHP_EOL . (string) $this->_rawResponse);
+                $this->getLogger()->debug((string) $this->_request . PHP_EOL . (string) $this->_request->getResponse());
             }
             
             return $this->_response;
@@ -301,16 +291,7 @@ abstract class Request
      */
     public function getRawResponse()
     {
-        return $this->_rawResponse;
-    }
-    
-    /**
-     * Get plain response body. Useful for error handling when exception occurs
-     * @return string
-     */
-    public function getResponseBody()
-    {
-        return $this->_request->getResponseBody();
+        return $this->_request->getResponse();
     }
     
     protected function behaviors()
@@ -437,4 +418,3 @@ abstract class Request
         return (string) $this->_request;
     }
 }
-
