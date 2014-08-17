@@ -18,3 +18,9 @@ You can install library through Composer:
     }
 }
 ```
+
+Prohects based on this library
+------------------------------
+
+* [Instagram API](https://github.com/sokil/php-instagram)
+* [Distributive Manager API](https://github.com/sokil/php-distmanager-sdk) for [Distributive Manager](https://github.com/sokil/distributiveManager)
